@@ -1,10 +1,17 @@
 package messaging
 
 import (
+	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/nats-io/nats.go"
 )
+
+type Pubisher interface {
+	Punlish(ctx context.Context, subject string, event any) error
+	Close()
+}
 
 type Bus struct {
 	nc *nats.Conn
@@ -25,8 +32,12 @@ func NewNATS(url string) (*Bus, error) {
 	return &Bus{nc: nc, js: js}, nil
 }
 
-func (b *Bus) Publish(subject string, data []byte) error {
-	_, err := b.js.Publish(subject, data)
+func (b *Bus) Publish(ctx context.Context, subject string, event any) error {
+	data, err := json.Marshal(event)
+	if err != nil {
+		return fmt.Errorf("failed to marshal event: %w", err)
+	}
+	_, err = b.js.Publish(subject, data)
 	return err
 }
 
