@@ -29,6 +29,18 @@ func NewNATS(url string) (*Bus, error) {
 		return nil, fmt.Errorf("failed to get JetStream context: %w", err)
 	}
 
+	_, err = js.StreamInfo("EVENTS")
+	if err != nil {
+		_, err := js.AddStream(&nats.StreamConfig{
+			Name:     "EVENTS",
+			Subjects: []string{">"},
+			Storage:  nats.FileStorage,
+		})
+		if err != nil {
+			return nil, fmt.Errorf("failed to create EVENTS stream: %w", err)
+		}
+	}
+
 	return &Bus{nc: nc, js: js}, nil
 }
 
