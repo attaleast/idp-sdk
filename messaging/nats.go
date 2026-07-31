@@ -8,8 +8,8 @@ import (
 	"github.com/nats-io/nats.go"
 )
 
-type Pubisher interface {
-	Punlish(ctx context.Context, subject string, event any) error
+type Publisher interface {
+	Publish(ctx context.Context, subject string, event any) error
 	Close()
 }
 
