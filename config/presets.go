@@ -29,10 +29,22 @@ type LogConfig struct {
 
 // PostgresConfig configures database/postgres.New
 type PostgresConfig struct {
-	DSN         string        `env:"POSTGRES_DSN" envDefault:"true"`
+	DSN         string        `env:"POSTGRES_DSN" envRequired:"true"`
 	MaxConns    int32         `env:"POSTGRES_MAX_CONNS" envDefault:"20"`
 	MinConns    int32         `env:"POSTGRES_MIN_CONNS" envDefault:"2"`
 	ConnTimeout time.Duration `env:"POSTGRES_CONN_TIMEOUT" envDefault:"5s"`
+}
+
+// ClickHouseConfig configures database/clickhouse.New
+type ClickHouseConfig struct {
+	Addr         []string      `env:"CLICKHOUSE_ADDR" envRequired:"true"`
+	Database     string        `env:"CLICKHOUSE_DB" envRequired:"true"`
+	Username     string        `env:"CLICKHOUSE_USER" envRequired:"true"`
+	Password     string        `env:"CLICKHOUSE_PASS" envRequired:"true"`
+	Secure       bool          `env:"CLICKHOUSE_TLS_ENABLED" envDefault:"false"`
+	DialTimeout  time.Duration `env:"CLICKHOUSE_DIAL_TIMEOUT" envDefault:"5s"`
+	MaxOpenConns int           `env:"CLICKHOUSE_MAX_OPEN_CONNS" envDefault:"10"`
+	MaxIdleConns int           `env:"CLICKHOUSE_MAX_IDLE_CONNS" envDefault:"5"`
 }
 
 // OTelConfig configures the observability package
