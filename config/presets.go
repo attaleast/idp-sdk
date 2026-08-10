@@ -17,7 +17,7 @@ import "time"
 // ServerConfig configures server.New (see the server package)
 type ServerConfig struct {
 	Port             int           `env:"HTTP_PORT" envDefault:"8080"`
-	ShutdownInterval time.Duration `env:"HTTP_SHUTDOWN_TIMEOUT" envDefault:"15s"`
+	ShutdownInterval time.Duration `env:"HTTP_SHUTDOWN_INTERVAL" envDefault:"15s"`
 	Environment      string        `env:"ENVIRONMENT" envDefault:"development"` // development|staging|production
 }
 
@@ -83,5 +83,5 @@ type RedisConfig struct {
 type AuthConfig struct {
 	Issuer   string `env:"OIDC_ISSUER" envRequired:"true"`
 	Mode     string `env:"OIDC_MODE" envDefault:"jwks"` // jwks|introspection
-	Audience string `env:"OICE_AUDIENCE" envDefault:""`
+	Audience string `env:"OIDC_AUDIENCE" envDefault:""`
 }

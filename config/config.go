@@ -120,13 +120,13 @@ func setField(fv reflect.Value, raw string) error {
 			return fmt.Errorf("invalid bool %q: %w", raw, err)
 		}
 		fv.SetBool(b)
-	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int64:
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 		n, err := strconv.ParseInt(raw, 10, 64)
 		if err != nil {
 			return fmt.Errorf("invalid int %q :%w", raw, err)
 		}
 		fv.SetInt(n)
-	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint64:
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
 		n, err := strconv.ParseUint(raw, 10, 64)
 		if err != nil {
 			return fmt.Errorf("invalid uint %q: %w", raw, err)
