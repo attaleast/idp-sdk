@@ -14,7 +14,7 @@ import "time"
 // 	AppSpecificFeild string `env:"FEATURE_X_ENABLED" envDefault:"false"`
 // }
 
-// ServerConfi configures server.New (see the server package)
+// ServerConfig configures server.New (see the server package)
 type ServerConfig struct {
 	Port             int           `env:"HTTP_PORT" envDefault:"8080"`
 	ShutdownInterval time.Duration `env:"HTTP_SHUTDOWN_TIMEOUT" envDefault:"15s"`
@@ -23,7 +23,7 @@ type ServerConfig struct {
 
 // LogConfig configures logging.New
 type LogConfig struct {
-	Level  string `env:"LOG_FORMAT" envDefault:"info"` // debug|info|warn|error
+	Level  string `env:"LOG_LEVEL" envDefault:"info"`  // debug|info|warn|error
 	Format string `env:"LOG_FORMAT" envDefault:"json"` // json|text
 }
 
